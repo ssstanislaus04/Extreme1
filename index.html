@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Гангстерский гид по набору массы</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-sub: #172238;
+      --border: #24324c;
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.2);
+      --cyan: #06b6d4;
+      --rose: #f43f5e;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Мобильный контейнер без вылетов */
+    .app-wrapper {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 14px 12px 60px;
+      box-sizing: border-box;
+    }
+
+    .top-bar {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .top-title {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-title span {
+      color: var(--accent);
+    }
+
+    .btn-pdf {
+      width: 100%;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0b0f19;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 13px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      transition: opacity 0.2s;
+    }
+
+    .btn-pdf:active {
+      opacity: 0.85;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #131c30 0%, #0e1526 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hero-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 14px;
+      margin-bottom: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-badge {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--accent);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .section-intro {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* Поля калькулятора */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 12px;
+      width: 100%;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    label {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    input, select {
+      width: 100%;
+      background: #090e1a;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 11px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    .btn-calc {
+      width: 100%;
+      background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+      color: #041421;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+
+    /* Блок вывода калорий */
+    .cal-result-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.04) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .cal-subtext {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .cal-big-val {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    .cal-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* БЖУ карточки */
+    .bzu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .bzu-card {
+      background: #090e1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+
+    .bzu-card.p { border-top: 3px solid var(--rose); }
+    .bzu-card.f { border-top: 3px solid var(--accent); }
+    .bzu-card.c { border-top: 3px solid var(--cyan); }
+
+    .bzu-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .bzu-num {
+      font-size: 19px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .bzu-meta {
+      font-size: 10.5px;
+      color: #64748b;
+    }
+
+    .callout {
+      background: rgba(6, 182, 212, 0.07);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 8px 8px 0;
+      padding: 12px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .rule-card {
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .rule-card-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .rule-card-body {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* Компактный список тренировок */
+    .day-heading {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 14px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .workout-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .workout-item {
+      background: #090e1a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .workout-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .workout-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .workout-badge {
+      font-size: 11px;
+      font-weight: 800;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: #38bdf8;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .exercise-card {
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      margin-bottom: 12px;
+    }
+
+    .ex-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .ex-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .ex-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .step-item {
+      margin-bottom: 7px;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #cbd5e1;
+    }
+
+    .step-label {
+      font-weight: 800;
+      color: var(--cyan);
+      font-size: 11px;
+      text-transform: uppercase;
+      display: inline;
+    }
+
+    .ex-mistake {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 11.5px;
+      color: #fda4af;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    .ex-mistake strong {
+      color: #f43f5e;
+      text-transform: uppercase;
+      font-size: 10.5px;
+    }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .top-bar, .btn-calc, button {
+        display: none !important;
+      }
+      .app-wrapper {
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+      .hero-card, .section-block, .rule-card, .exercise-card, .workout-item, .bzu-card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      h1, .section-title, .top-title, .workout-name, .ex-name, .cal-big-val {
+        color: #0f172a !important;
+      }
+      .hero-text, .section-intro, .rule-card-body, .step-item, .cal-meta, .workout-meta {
+        color: #334155 !important;
+      }
+      .cal-result-banner {
+        background: #fef3c7 !important;
+        border-color: #fde68a !important;
+      }
+      .ex-mistake {
+        background: #fff1f2 !important;
+        border-color: #fecdd3 !important;
+        color: #9f1239 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Верхняя панель (статическая, не наползает на контент) -->
+    <header class="top-bar">
+      <div class="top-title">
+        <span>⚡ MASS-GAIN</span> ГАНГСТЕРСКИЙ ГИД
+      </div>
+      <button class="btn-pdf" onclick="window.print()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+        </svg>
+        Скачай, гангстер (Сохранить в PDF)
+      </button>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="hero-card">
+      <div class="badge">Курс на массу • 3 раза в неделю</div>
+      <h1>Здорово, гангстер! Твой четкий план набора мяса</h1>
+      <p class="hero-text">
+        Вбивай данные в калькулятор БЖУ, осваивай правило двойной прогрессии весов, проходи 2 недели вводной адаптации суставов и переходи на базовую программу Full Body.
+      </p>
+    </section>
+
+    <!-- СЕКЦИЯ 1: Калькулятор БЖУ -->
+    <section class="section-block">
+      <div class="section-head">
+        <span class="section-badge">01</span>
+        <h2 class="section-title">Калькулятор калорий и БЖУ</h2>
+      </div>
+      <p class="section-intro">
+        Расчет базового расхода (формула Миффлина — Сан Жеора) + чистый профицит 15% для стабильного набора без лишнего жира.
+      </p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="w">Вес (кг)</label>
+          <input type="number" id="w" value="67" min="40" max="150" step="0.5" oninput="calc()">
+        </div>
+        <div class="form-group">
+          <label for="h">Рост (см)</label>
+          <input type="number" id="h" value="178" min="130" max="220" oninput="calc()">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="a">Возраст</label>
+          <input type="number" id="a" value="22" min="14" max="75" oninput="calc()">
+        </div>
+        <div class="form-group">
+          <label for="act">Активность</label>
+          <select id="act" onchange="calc()">
+            <option value="1.2">Малоподвижная</option>
+            <option value="1.375" selected>3 тренировки в зале</option>
+            <option value="1.55">Тяжелый труд</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-calc" onclick="calc()">Рассчитать массу</button>
+
+      <!-- Результаты -->
+      <div class="cal-result-banner">
+        <div class="cal-subtext">Твоя калорийность на массу (+15%)</div>
+        <div class="cal-big-val" id="resKcal">2 653 <span style="font-size:18px; color:var(--accent);">ккал</span></div>
+        <div class="cal-meta" id="resMeta">Поддержание: ~2 307 ккал (+346 ккал профицит)</div>
+      </div>
+
+      <div class="bzu-grid">
+        <div class="bzu-card p">
+          <div class="bzu-title">Белки (2 г)</div>
+          <div class="bzu-num" id="resP">134 г</div>
+          <div class="bzu-meta" id="resPk">536 ккал</div>
+        </div>
+        <div class="bzu-card f">
+          <div class="bzu-title">Жиры (1.1 г)</div>
+          <div class="bzu-num" id="resF">74 г</div>
+          <div class="bzu-meta" id="resFk">666 ккал</div>
+        </div>
+        <div class="bzu-card c">
+          <div class="bzu-title">Углеводы</div>
+          <div class="bzu-num" id="resC">363 г</div>
+          <div class="bzu-meta" id="resCk">1451 ккал</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Скачай, гангстер:</strong> Ставь FatSecret или YAZIO. Взвешивай крупы и макароны <strong>сухими</strong>, а мясо <strong>сырым</strong>. Если за 2 недели вес стоит на месте — докидывай +200 ккал гречкой или рисом.
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 2: Прогрессия нагрузок -->
+    <section class="section-block">
+      <div class="section-head">
+        <span class="section-badge">02</span>
+        <h2 class="section-title">Прогрессия нагрузок (Как растить веса)</h2>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-card-title">1. Двойная прогрессия (Double Progression)</div>
+        <div class="rule-card-body">
+          Выбери диапазон <strong>3 подхода по 8–10 повторений</strong>. Возьми вес, с которым делаешь 3×8. Тренируйся с ним, пока не сделаешь 3×10 с чистой техникой. Только после этого повышай рабочий вес на снаряде!
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-card-title">2. Шаг добавления веса</div>
+        <div class="rule-card-body">
+          • Приседания и тяги: <strong>+2.5–5 кг</strong> на штангу.<br>
+          • Жимы (лежа, стоя): <strong>+1.25–2.5 кг</strong>.<br>
+          • Блоки и гантели: <strong>+1 кг</strong> или шаг в одну плитку.
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-card-title">3. Запас сил (RIR 1–2)</div>
+        <div class="rule-card-body">
+          Не доходи до отказа и судорог в каждом подходе. Заканчивай, когда чувствуешь, что мог бы сделать еще 1–2 чистых повтора. Так ты сохранишь суставы и не выгоришь.
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 3: Вводные 2 недели -->
+    <section class="section-block">
+      <div class="section-head">
+        <span class="section-badge">03</span>
+        <h2 class="section-title">Вводные 2 недели (Адаптация связок)</h2>
+      </div>
+      <p class="section-intro">
+        Тренируйся 3 раза в неделю через день (Пн, Ср, Пт). Сразу под тяжелую штангу не лезь — укрепляем сухожилия, блочные тренажеры и свой вес:
+      </p>
+
+      <div class="workout-list">
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">1. Кубковый присед с гирей</div>
+            <div class="workout-meta">Отдых 1.5–2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">2. Отжимания от пола</div>
+            <div class="workout-meta">Отдых 1.5 мин (можно с колен)</div>
+          </div>
+          <div class="workout-badge">3 × 8–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">3. Тяга верхнего блока к груди</div>
+            <div class="workout-meta">Отдых 1.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">4. Тяга горизонтального блока к поясу</div>
+            <div class="workout-meta">Отдых 1.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">5. Подтягивания (гравитрон / резина)</div>
+            <div class="workout-meta">Отдых 2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 6–8</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">6. Планка на предплечьях</div>
+            <div class="workout-meta">Отдых 1 мин</div>
+          </div>
+          <div class="workout-badge">3 × 30–45 сек</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 4: Основная программа с 3-й недели -->
+    <section class="section-block">
+      <div class="section-head">
+        <span class="section-badge">04</span>
+        <h2 class="section-title">Основная программа с 3-й недели (Full Body)</h2>
+      </div>
+
+      <!-- День А -->
+      <div class="day-heading">⚡ Тренировка А (Понедельник)</div>
+      <div class="workout-list">
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Приседания со штангой на спине</div>
+            <div class="workout-meta">Квадрицепс, ягодицы • Отдых 2–2.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 8–10</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Жим штанги лежа на горизонталке</div>
+            <div class="workout-meta">Грудные, трицепс • Отдых 2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 8–10</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Тяга верхнего блока к груди</div>
+            <div class="workout-meta">Ширина спины • Отдых 1.5–2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Подъем штанги на бицепс стоя</div>
+            <div class="workout-meta">Бицепс • Отдых 1.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Планка на предплечьях</div>
+            <div class="workout-meta">Кор • Отдых 1 мин</div>
+          </div>
+          <div class="workout-badge">3 × 45–60 сек</div>
+        </div>
+      </div>
+
+      <!-- День Б -->
+      <div class="day-heading">⚡ Тренировка Б (Среда)</div>
+      <div class="workout-list">
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Румынская тяга (штанга/гантели)</div>
+            <div class="workout-meta">Бицепс бедра, ягодицы • Отдых 2–2.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 8–10</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Армейский жим стоя / Жим гантелей сидя</div>
+            <div class="workout-meta">Плечи (дельты) • Отдых 2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 8–10</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Тяга горизонтального блока к поясу</div>
+            <div class="workout-meta">Толщина спины • Отдых 1.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Разгибания на блоке (трицепс)</div>
+            <div class="workout-meta">Трицепс • Отдых 1.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Подъемы ног в висе / брусья</div>
+            <div class="workout-meta">Пресс • Отдых 1 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–15</div>
+        </div>
+      </div>
+
+      <!-- День В -->
+      <div class="day-heading">⚡ Тренировка В (Пятница)</div>
+      <div class="workout-list">
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Жим ногами в тренажере</div>
+            <div class="workout-meta">Ноги (без нагрузки на спину) • Отдых 2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 10–12</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Жим гантелей на наклонной (30°)</div>
+            <div class="workout-meta">Верх груди • Отдых 2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 8–10</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Подтягивания (или гравитрон)</div>
+            <div class="workout-meta">Широчайшие • Отдых 2 мин</div>
+          </div>
+          <div class="workout-badge">3 × 6–8</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Махи гантелями через стороны</div>
+            <div class="workout-meta">Средняя дельта • Отдых 1.5 мин</div>
+          </div>
+          <div class="workout-badge">3 × 12–15</div>
+        </div>
+        <div class="workout-item">
+          <div>
+            <div class="workout-name">Подъемы на носки (икры)</div>
+            <div class="workout-meta">Икры • Отдых 1 мин</div>
+          </div>
+          <div class="workout-badge">3 × 12–15</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ 5: Техника упражнений -->
+    <section class="section-block">
+      <div class="section-head">
+        <span class="section-badge">05</span>
+        <h2 class="section-title">Техника ключевых упражнений</h2>
+      </div>
+
+      <!-- 1. Goblet Squat -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">1. Кубковый присед (Goblet Squat)</span>
+          <span class="ex-tag">Гиря / Гантель</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Держи гирю у груди двумя руками за дужки, локти вниз. Стопы чуть шире плеч, носки развернуты на 25–30°.</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> На вдохе отводи таз назад и садись до параллели, разводя колени строго по носкам (локти идут между колен).</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> На выдохе мощно вставай с упором на пятки, прожимая ягодицы вверху. Спина ровная.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> Отрыв пяток и сведение коленей внутрь. Колени всегда в стороны!</div>
+      </div>
+
+      <!-- 2. Push-ups -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">2. Отжимания от пола</span>
+          <span class="ex-tag">Свой вес</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Упор лежа, ладони чуть шире плеч на уровне груди. Пресс и ягодицы зажаты (тело натянуто струной).</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> На вдохе опускайся до пары сантиметров от пола. Локти держи под углом 45–60° к телу (не расставляй в стороны).</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> На выдохе выжимай себя вверх силой груди и трицепса.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> Провисание поясницы или задранный таз. Держи тело жестким монолитом.</div>
+      </div>
+
+      <!-- 3. Lat Pulldown -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">3. Тяга верхнего блока к груди</span>
+          <span class="ex-tag">Блочный тренажер</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Сядь, плотно прижми бедра валиками. Хват широкий. Слегка отклони корпус назад на 10–15°.</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> Сначала опусти лопатки вниз, затем веди рукоять к ключицам, направляя локти вниз и назад.</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> Медленно и под контролем возвращай рукоять вверх на вдохе.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> Тяга за голову и раскачка спиной. Тяни только к верхней части груди!</div>
+      </div>
+
+      <!-- 4. Seated Cable Row -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">4. Тяга горизонтального блока</span>
+          <span class="ex-tag">Блочный тренажер</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Стопы в упорах, колени слегка согнуты. Спина прямая с естественным прогибом.</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> На выдохе тяни рукоять к поясу/низу живота, максимально сводя лопатки и уводя локти за спину.</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> Задержись на секунду в пике, затем плавно разогни руки, чувствуя растяжение широчайших.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> Наклоны туловищем вперед-назад по инерции. Корпус держи неподвижно!</div>
+      </div>
+
+      <!-- 5. Barbell Back Squat -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">5. Приседания со штангой</span>
+          <span class="ex-tag">Штанга</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Гриф лежит на мясе трапеций (не на шее!). Стопы на ширине плеч, носки развернуты.</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> На вдохе отводи таз назад и садись до параллели, колени сонаправлены носкам.</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> На выдохе мощно вставай через всю стопу. Взгляд прямо, грудь раскрыта.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> «Клевок» тазом и сведение коленей внутрь. Не роняй колени!</div>
+      </div>
+
+      <!-- 6. Bench Press -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">6. Жим штанги лежа</span>
+          <span class="ex-tag">Штанга + Скамья</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Глаза под грифом. Лопатки жестко сведи вместе, стопы упри в пол.</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> На вдохе опускай штангу на середину/низ груди (локти под углом 70–75° к корпусу).</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> Коснись груди без отбива и на выдохе выжми снаряд вверх.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> Отбив грифа от грудной клетки и отрыв таза от скамьи.</div>
+      </div>
+
+      <!-- 7. Romanian Deadlift -->
+      <div class="exercise-card">
+        <div class="ex-header">
+          <span class="ex-name">7. Румынская тяга (RDL)</span>
+          <span class="ex-tag">Штанга / Гантели</span>
+        </div>
+        <div class="step-item"><span class="step-label">Шаг 1:</span> Снаряд перед бедрами. Колени согни на 15° и жестко зафиксируй этот угол.</div>
+        <div class="step-item"><span class="step-label">Шаг 2:</span> Отводи таз назад, ведя снаряд вплотную по ногам до середины голени, пока не натянется задняя поверхность бедра.</div>
+        <div class="step-item"><span class="step-label">Шаг 3:</span> Спина прямая! На выдохе за счет мощного сжатия ягодиц выпрямляйся.</div>
+        <div class="ex-mistake"><strong>Ошибка:</strong> Горб в спине и превращение тяги в приседания. Движение идет только в тазу!</div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function calc() {
+      const w = parseFloat(document.getElementById('w').value) || 67;
+      const h = parseFloat(document.getElementById('h').value) || 178;
+      const a = parseFloat(document.getElementById('a').value) || 22;
+      const act = parseFloat(document.getElementById('act').value) || 1.375;
+
+      // Формула Миффлина — Сан Жеора (мужская база)
+      const bmr = (10 * w) + (6.25 * h) - (5 * a) + 5;
+      const tdee = Math.round(bmr * act);
+      const targetKcal = Math.round(tdee * 1.15);
+      const surplus = targetKcal - tdee;
+
+      // БЖУ: Белок 2.0 г/кг, Жиры 1.1 г/кг, остаток - Углеводы
+      const p = Math.round(w * 2.0);
+      const pKcal = p * 4;
+
+      const f = Math.round(w * 1.1);
+      const fKcal = f * 9;
+
+      const cKcal = Math.max(0, targetKcal - (pKcal + fKcal));
+      const c = Math.round(cKcal / 4);
+
+      document.getElementById('resKcal').innerHTML = `${targetKcal.toLocaleString('ru-RU')} <span style="font-size:18px; color:var(--accent);">ккал</span>`;
+      document.getElementById('resMeta').textContent = `Поддержание: ~${tdee.toLocaleString('ru-RU')} ккал (+${surplus} ккал профицит)`;
+
+      document.getElementById('resP').textContent = `${p} г`;
+      document.getElementById('resPk').textContent = `${pKcal} ккал`;
+
+      document.getElementById('resF').textContent = `${f} г`;
+      document.getElementById('resFk').textContent = `${fKcal} ккал`;
+
+      document.getElementById('resC').textContent = `${c} г`;
+      document.getElementById('resCk').textContent = `${cKcal} ккал`;
+    }
+
+    window.onload = calc;
+  </script>
+</body>
+</html>
